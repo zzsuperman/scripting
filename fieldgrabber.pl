@@ -104,9 +104,9 @@ foreach(@htmfiles){
   foreach(@dplines){
     unless(defined $CALL){
       if(m/(DEFENDANT|PLAINTIFF)\s+(Defendant|Plaintiff):\s+([\w\s\,\.]+)\s+represented\s+by\s+([\w\s\(\)\,\.]+)\s+Phone:\s+(\d+)\s+Fax:\s+(\d+)\s+Email:\s+(\S+)/){
-	print OUTFILE "$1,$3,$4,$5,$6,$7\n";
+	print OUTFILE "$1,$3,$4,$5,$6,$7,";
       } elsif(m/(DEFENDANT|PLAINTIFF)\s+(Defendant|Plaintiff):\s+([\w\s\,\.]+)\s+represented\s+by\s+([\w\s\(\)\,\.]+)\s+Phone:\s+(\d+)\s+Email:\s+(\S+)/){
-	print OUTFILE "$1,$3,$4,$5,N\/A,$6\n";
+	print OUTFILE "$1,$3,$4,$5,N\/A,$6,";
       } else {
 	print OUTFILE "$_\n";
       }
