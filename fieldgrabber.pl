@@ -59,6 +59,7 @@ if(defined $DIR){
 my @dplines;
 my $defmatch=0;
 my $cstart=0;
+my $tstart=0;
 my $outline="";
 
 ####OPEN EACH HTM* FILE ONE AT A TIME, PROCESS FOR DETAILS####
@@ -102,17 +103,27 @@ foreach(@htmfiles){
     if(defined $CALL){
       my $readline=$_;
       my $usline=$_;
-      $readline=~s/\<[\w\s\=\"\/\-\.\\]+\>//g;
+      $readline=~s/\<[\w\s\=\"\/\-\.\\\{\}\;]+\>//g;
+      $readline=~s/\{[\w\s\{\}\\\;]+\}//g;
       $readline=~s/\r//g;
+      $readline=~s/,/\,/g;
       chomp($readline);
       if($cstart==1){
 	unless(($readline=~m/^$/) || ($readline=~m/^Play$/)){
-	  $outline="$outline,$readline";
+	  if($readline=~m/Transcript\s\:/){
+	    $tstart=1;
+	  }
+	  if ($tstart==1){
+	    $outline="$outline $readline";
+	  } else {
+	    $outline="$outline,$readline";
+	  }
 	}
 	if($usline=~m/\"row_norm\"/){
 	  $outline="$outline\n";
 	  push(@dplines,$outline);
 	  $cstart=0;
+	  $tstart=0;
 	  $outline="";
 	}
       }
