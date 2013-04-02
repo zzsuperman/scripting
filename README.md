@@ -5,4 +5,5 @@ These scripts will run on a directory or directories, via a cron job, and parse 
 PROGRAMMER: Chet Witucki
 30MAR2013:	Initial github setup
 31MAR2013:	README update
+01APR2013:	New option for CALL type file (-c flag)
 =========
